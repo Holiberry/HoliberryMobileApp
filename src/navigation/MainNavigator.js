@@ -4,6 +4,7 @@ import myStyles from '../constants/myStyles'
 import MapScreen from "../screens/app/MapScreen";
 import UserProfileScreen from "../screens/app/UserProfileScreen";
 import UserChallengesScreen from "../screens/app/UserChallengesScreen";
+import RankingScreen from "../screens/app/RankingScreen";
 
 const NonAuthStackNavigator = createStackNavigator()
 const MainNavigator = () => {
@@ -19,8 +20,8 @@ const MainNavigator = () => {
             screenOptions={{...myStyles.defaultNavOptions, cardStyleInterpolator: forFade}}>
             <NonAuthStackNavigator.Screen name='Profile' component={UserProfileScreen}/>
             <NonAuthStackNavigator.Screen name='Challenges' component={UserChallengesScreen}/>
+            <NonAuthStackNavigator.Screen name='Ranking' component={RankingScreen}/>
             <NonAuthStackNavigator.Screen name='Map' component={MapScreen}/>
-
         </NonAuthStackNavigator.Navigator>
     )
 }

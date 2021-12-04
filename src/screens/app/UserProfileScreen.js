@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Dimensions, Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from "react-redux";
-import {LinearGradient} from "expo-linear-gradient";
 import colors from "../../constants/colors";
 import {Avatar, ListItem} from 'react-native-elements';
 import {user} from "../../crud/data/user";
@@ -11,6 +10,7 @@ import * as authActions from "../../store/actions/auth";
 import {FontAwesome5} from "@expo/vector-icons";
 import {useNavigation} from "@react-navigation/native";
 import AddButton from "../../components/general/AddButton.component";
+import {Gradient} from "../../components/layout/Gradient";
 
 const BADGE_SIZE = 50;
 
@@ -47,13 +47,7 @@ const UserProfileScreen = () => {
     return (
         <View style={styles.container}>
             <View style={[styles.container]}>
-                <LinearGradient
-                    colors={[colors.darkPrimary, colors.secondary]}
-                    style={styles.gradient}
-                    start={[0, 1]}
-                    end={[1, 0]}
-                >
-                </LinearGradient>
+                <Gradient/>
                 <ScrollView>
                     <ListItem containerStyle={{backgroundColor: 'transparent', paddingHorizontal: 30}}>
                         <Avatar
@@ -79,7 +73,7 @@ const UserProfileScreen = () => {
                                     fontSize: 20
                                 }}>{user.name.first} {user.name.last}</ListItem.Title>
                                 <ListItem.Subtitle
-                                    style={{color: '#EEEEEE', fontSize: 14}}>{user.name.userName}</ListItem.Subtitle>
+                                    style={{color: '#EEEEEE', fontSize: 14}}>@{user.name.userName}</ListItem.Subtitle>
 
                             </View>
                             <RoundIconButton
@@ -102,6 +96,7 @@ const UserProfileScreen = () => {
                                         <RoundIconButton
                                             icon={"medal"}
                                             size={"lg"}
+                                            onPress={navigate("Ranking")}
                                         />
                                         <Text style={styles.menuText}>
                                             Rankingi
@@ -225,15 +220,17 @@ const UserProfileScreen = () => {
                                     {/*<View style={{*/}
                                     {/*    width: '60%'*/}
                                     {/*}}>*/}
-                                        {/*<ListItem.Title style={{*/}
-                                        {/*    fontWeight: 'bold',*/}
-                                        {/*    fontSize: 14*/}
-                                        {/*}}>{user.school.name}</ListItem.Title>*/}
-                                        {/*<ListItem.Subtitle*/}
-                                        {/*    style={{*/}
-                                        {/*        fontSize: 10*/}
-                                        {/*    }}>Klasa {user.school.class}</ListItem.Subtitle>*/}
-                                        <AddButton> Uzupełnij</AddButton><FontAwesome5 name={"edit"} size={14} color={colors.primary} style={{marginLeft: 5}}/>
+                                    {/*<ListItem.Title style={{*/}
+                                    {/*    fontWeight: 'bold',*/}
+                                    {/*    fontSize: 14*/}
+                                    {/*}}>{user.school.name}</ListItem.Title>*/}
+                                    {/*<ListItem.Subtitle*/}
+                                    {/*    style={{*/}
+                                    {/*        fontSize: 10*/}
+                                    {/*    }}>Klasa {user.school.class}</ListItem.Subtitle>*/}
+                                    <AddButton> Uzupełnij</AddButton><FontAwesome5 name={"edit"} size={14}
+                                                                                   color={colors.primary}
+                                                                                   style={{marginLeft: 5}}/>
                                     {/*</View>*/}
                                     {/*</View>*/}
                                 </ListItem.Content>

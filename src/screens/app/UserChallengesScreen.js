@@ -9,6 +9,7 @@ import Header from "../../components/general/Header";
 import {LinearProgress} from 'react-native-elements';
 import Badge from "../../components/general/Badge";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {Gradient} from "../../components/layout/Gradient";
 
 const UserChallengesScreen = () => {
 
@@ -22,13 +23,7 @@ const UserChallengesScreen = () => {
     return (
         <View style={styles.container}>
             <View style={[styles.container]}>
-                <LinearGradient
-                    colors={[colors.darkPrimary, colors.secondary]}
-                    style={styles.gradient}
-                    start={[0, 1]}
-                    end={[1, 0]}
-                >
-                </LinearGradient>
+                <Gradient/>
                 <Header back light title={"WYZWANIA"}/>
                 <ScrollView style={{width: '100%'}} contentContainerStyle={{alignItems: "center", padding: 10}}>
                     <Card>

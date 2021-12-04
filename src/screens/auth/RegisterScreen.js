@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         height: myStyles.screenHeight * 0.2,
-        width: myStyles.screenWidth * 0.4,
+        width: myStyles.screenWidth * 0.7,
         resizeMode: "contain",
     },
     iconView: {

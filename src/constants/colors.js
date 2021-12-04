@@ -12,9 +12,9 @@ export default {
   textWhite: "#ffffff",
   textBlack: "#000000",
 
-  primary: "#22ad74",
-  darkPrimary: "#1c9a68",
-  secondary: "#Bcec5b",
+  darkPrimary: "#09A05D",
+  primary: "#40C359",
+  secondary: "#69E456",
   background: "#f2f2f2",
   drawerTintColor: "#bdbfc7",
 };

@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         height: myStyles.screenHeight * 0.25,
-        width: myStyles.screenWidth * 0.5,
+        width: myStyles.screenWidth * 0.7,
         resizeMode: "contain",
     },
     iconView: {

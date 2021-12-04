@@ -13,7 +13,7 @@ import colors from '../../constants/colors'
 
 const Header = ({ title, isLoading, back, light, style, noMargin, buttonLeft }) => {
   const navigation = useNavigation()
-
+  console.log(navigation)
   return (
     <View style={[styles.container, noMargin ? null : styles.containerMargin, style]}>
       <View style={styles.menu}>
