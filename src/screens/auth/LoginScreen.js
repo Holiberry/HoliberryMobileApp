@@ -148,11 +148,13 @@ const LoginScreen = (props) => {
                                 <View style={[styles.centeredButtonsView, styles.oauthButtons]}>
                                     <View style={styles.oauthContainer}>
                                         <OAuthButton
+                                            onPress={logIn}
                                             site={'fb'}
                                         />
                                     </View>
                                     <View style={styles.oauthContainer}>
                                         <OAuthButton
+                                            onPress={logIn}
                                             site={'google'}
                                         />
                                     </View>

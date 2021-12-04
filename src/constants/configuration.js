@@ -1,3 +1,3 @@
 export default {
-  API_URL: "https://example.com/v1/",
+  API_URL: "https://api.ecoheroes.pl/v1/",
 };

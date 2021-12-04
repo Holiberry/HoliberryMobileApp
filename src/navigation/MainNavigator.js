@@ -18,10 +18,11 @@ const MainNavigator = () => {
     return (
         <NonAuthStackNavigator.Navigator
             screenOptions={{...myStyles.defaultNavOptions, cardStyleInterpolator: forFade}}>
+            <NonAuthStackNavigator.Screen name='Map' component={MapScreen}/>
             <NonAuthStackNavigator.Screen name='Profile' component={UserProfileScreen}/>
             <NonAuthStackNavigator.Screen name='Challenges' component={UserChallengesScreen}/>
             <NonAuthStackNavigator.Screen name='Ranking' component={RankingScreen}/>
-            <NonAuthStackNavigator.Screen name='Map' component={MapScreen}/>
+
         </NonAuthStackNavigator.Navigator>
     )
 }

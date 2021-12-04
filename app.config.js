@@ -1,4 +1,4 @@
-const appName = 'walky-star'
+const appName = 'EcoHeroes'
 export const configuration = {
   APP_VERSION: '0.0.4',
   VERSION_CODE: 4,

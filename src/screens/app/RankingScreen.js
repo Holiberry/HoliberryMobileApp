@@ -69,49 +69,55 @@ const SchoolRanking = () => {
             <Card otherStyles={{marginBottom: 10}}>
                 <View style={[styles.ptsContainer, {paddingHorizontal: 15}]}>
                     <View style={{alignItems: 'center', paddingTop: 40, width: '30%'}}>
-                        <Avatar
-                            title={user2.name.userName}
-                            avatarStyle={[{
-                                borderColor: 'silver',
-                                borderWidth: 3
-                            }]}
-                            rounded
-                            size={"large"}
-                            source={{uri: user2.picture.large}}
-                        />
-                        <TextBadge val={'2'} size={25} bgColor={'silver'} passedStyle={styles.badge}/>
+                        <View>
+                            <Avatar
+                                title={user2.name.userName}
+                                avatarStyle={[{
+                                    borderColor: 'silver',
+                                    borderWidth: 3
+                                }]}
+                                rounded
+                                size={"large"}
+                                source={{uri: user2.picture.large}}
+                            />
+                            <TextBadge val={'2'} size={25} bgColor={'silver'} passedStyle={styles.badge}/>
+                        </View>
                         <Text style={styles.ptsText}>{user2.name.userName}</Text>
                         <Text
                             style={styles.ptsText}>{(users[0].pts + (Math.random() * 1000) + 1000).toFixed()} 🌍</Text>
                     </View>
                     <View style={{alignItems: 'center', width: '40%'}}>
-                        <Avatar
-                            title={user.name.userName}
-                            avatarStyle={[{
-                                borderColor: 'gold',
-                                borderWidth: 5
-                            }]}
-                            rounded
-                            size="xlarge"
-                            source={{uri: user.picture.large}}
-                        />
-                        <TextBadge val={'1'} size={40} bgColor={'gold'} passedStyle={styles.badgeBig}/>
+                        <View>
+                            <Avatar
+                                title={user.name.userName}
+                                avatarStyle={[{
+                                    borderColor: 'gold',
+                                    borderWidth: 5
+                                }]}
+                                rounded
+                                size="xlarge"
+                                source={{uri: user.picture.large}}
+                            />
+                            <TextBadge val={'1'} size={40} bgColor={'gold'} passedStyle={styles.badgeBig}/>
+                        </View>
                         <Text style={[styles.ptsText, {fontSize: 14}]}>{user.name.userName}</Text>
                         <Text
                             style={[styles.ptsText, {fontSize: 14}]}>{(users[0].pts + (Math.random() * 1000) + 2000).toFixed()} 🌍</Text>
                     </View>
                     <View style={{alignItems: 'center', paddingTop: 40, width: '30%'}}>
-                        <Avatar
-                            title={user3.name.userName}
-                            avatarStyle={[{
-                                borderColor: '#cd7f32',
-                                borderWidth: 3
-                            }]}
-                            size={"large"}
-                            rounded
-                            source={{uri: user3.picture.large}}
-                        />
-                        <TextBadge val={'3'} size={25} bgColor={'#cd7f32'} passedStyle={styles.badge}/>
+                        <View>
+                            <Avatar
+                                title={user3.name.userName}
+                                avatarStyle={[{
+                                    borderColor: '#cd7f32',
+                                    borderWidth: 3
+                                }]}
+                                size={"large"}
+                                rounded
+                                source={{uri: user3.picture.large}}
+                            />
+                            <TextBadge val={'3'} size={25} bgColor={'#cd7f32'} passedStyle={styles.badge}/>
+                        </View>
                         <Text style={styles.ptsText}>{user3.name.userName}</Text>
                         <Text style={styles.ptsText}>{(users[0].pts + (Math.random() * 1000)).toFixed()} 🌍</Text>
                     </View>
