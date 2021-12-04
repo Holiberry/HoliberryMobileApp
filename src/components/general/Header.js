@@ -11,7 +11,7 @@ import { Entypo } from 'react-native-vector-icons'
 import myStyles from '../../constants/myStyles'
 import colors from '../../constants/colors'
 
-const Header = ({ title, isLoading, back, light, style, noMargin }) => {
+const Header = ({ title, isLoading, back, light, style, noMargin, buttonLeft }) => {
   const navigation = useNavigation()
 
   return (
@@ -23,11 +23,11 @@ const Header = ({ title, isLoading, back, light, style, noMargin }) => {
             back ? navigation.goBack() : navigation.toggleDrawer()
           }}
         >
-          <Entypo name={back ? 'chevron-left' : 'menu'} size={26} color={light ? colors.lightGray : colors.textBlack} />
+          <Entypo name={back ? 'chevron-left' : 'menu'} size={26} color={light ? colors.white : colors.textBlack} />
         </TouchableOpacity>
       </View>
       <View style={styles.content}>
-        <View style={styles.left}>
+        <View style={styles.center}>
           <Text style={[styles.title, light ? styles.titleLight : null]}>{isLoading ? 'Loading...' : title}</Text>
         </View>
       </View>
@@ -38,15 +38,19 @@ const Header = ({ title, isLoading, back, light, style, noMargin }) => {
 const styles = StyleSheet.create({
   title: {
     ...myStyles.title,
+    fontWeight: 'bold'
   },
   titleLight: {
-    color: colors.lightGray,
+    color: colors.white,
   },
-  left: {
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingRight: myStyles.screenWidth * 0.12,
     flex: 1,
   },
   menu: {
-    // width: myStyles.screenWidth * 0.12,
+    width: myStyles.screenWidth * 0.12,
     marginRight: 5,
   },
   touchableMenu: {

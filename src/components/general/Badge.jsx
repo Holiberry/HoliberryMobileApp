@@ -3,9 +3,9 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import colors from "../../constants/colors";
 import {FontAwesome5} from "@expo/vector-icons";
 
-const SIZE = 40
+const SIZE = 50
 
-const RoundIconButton = (
+const Badge = (
     {
         size,
         IconFamily = FontAwesome5,
@@ -16,8 +16,7 @@ const RoundIconButton = (
         bgColor = colors.primary,
     }) => {
     return (
-        <TouchableOpacity
-            onPress={onPress}
+        <View
         >
             <View style={[styles.container, size === 'lg' ? styles.big : {}, {backgroundColor: bgColor}]}>
                 {!!IconFamily && <IconFamily
@@ -29,17 +28,16 @@ const RoundIconButton = (
                         size === 'lg' ? styles.bigIcon : {}
                     ]}/>}
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
-export default RoundIconButton;
+export default Badge;
 
 const styles = StyleSheet.create(
     {
         container: {
             padding: 10,
-            margin: 5,
             alignItems: 'center',
             justifyContent: 'center',
             width: SIZE,

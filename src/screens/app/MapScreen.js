@@ -3,16 +3,16 @@ import {useRef} from 'react';
 import MapView from 'react-native-maps';
 import {Dimensions, Platform, StatusBar, StyleSheet, View} from 'react-native';
 import RoundIconButton from "../../components/buttons/RoundIconButton";
-import * as authActions from "../../store/actions/auth";
 import {useDispatch} from "react-redux";
+import {useNavigation} from "@react-navigation/native";
 
 const MapScreen = () => {
 
-
+    const navigation = useNavigation()
     const dispatch = useDispatch();
     const mapRef = useRef(null);
-    const logout = () => {
-        dispatch(authActions.logout());
+    const navigate = (screenName) => () => {
+        navigation.navigate(screenName);
     };
     return (
         <View style={styles.container}>
@@ -30,7 +30,7 @@ const MapScreen = () => {
             <View style={styles.topRightContainer}>
                 <RoundIconButton
                     icon="user-circle"
-                    onPress={logout}
+                    onPress={navigate("Profile")}
                 />
                 <RoundIconButton
                     icon="tasks"
@@ -67,12 +67,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
         right: 0,
+        padding: 10
     },
     bottomRightContainer: {
         position: 'absolute',
         alignItems: "flex-end",
         bottom: 0,
         right: 0,
+        padding: 10
     },
 });
 

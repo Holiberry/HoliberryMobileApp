@@ -1,28 +1,18 @@
 // packages
 import React from 'react'
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 
 // components
 import {ContextMenu} from "./ContextMenu.component";
 
-const Card = ({children, onClick, otherStyles, contextMenuOptions, disabled}) => {
-
-    const [contextMenu, showContextMenu] = React.useState(false)
+const Card = ({children, otherStyles}) => {
 
     return (
-        <TouchableOpacity
-            onLongPress={() => showContextMenu(true)}
-            onPress={onClick}
+        <View
             style={[styles.card, styles.shadowProp, otherStyles]}
-            disabled={disabled}
         >
-            <ContextMenu
-                contextMenuOptions={contextMenuOptions}
-                opened={contextMenu}
-                openHandler={showContextMenu}
-            />
             {children}
-        </TouchableOpacity>
+        </View>
     )
 }
 
@@ -31,15 +21,14 @@ const styles = StyleSheet.create({
         position: "relative",
         backgroundColor: 'white',
         borderRadius: 8,
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        width: '100%',
-        // marginBottom: 20,
+        width: '90%',
+        marginBottom: 20,
     },
     shadowProp: {
         shadowColor: '#000',
         shadowOpacity: 0.2,
         shadowRadius: 5,
+        elevation: 5
     }
 });
 

@@ -9,6 +9,7 @@ import { Text } from 'react-native';
 
 setupAxios(store);
 
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
