@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dimensions, Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Platform, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {useDispatch} from "react-redux";
 import colors from "../../constants/colors";
 import {Avatar, ListItem} from 'react-native-elements';
@@ -11,24 +11,7 @@ import {FontAwesome5} from "@expo/vector-icons";
 import {useNavigation} from "@react-navigation/native";
 import AddButton from "../../components/general/AddButton.component";
 import {Gradient} from "../../components/layout/Gradient";
-
-const BADGE_SIZE = 50;
-
-const Badge = ({
-                   onPress = () => {
-                   }
-               }) => <TouchableOpacity
-    onPress={onPress}
-    style={{
-        height: BADGE_SIZE,
-        width: BADGE_SIZE,
-        backgroundColor: colors.primary,
-        marginBottom: 10,
-        borderRadius: BADGE_SIZE * 0.5
-    }}
->
-
-</TouchableOpacity>
+import Badge from "../../components/general/Badge";
 
 const UserProfileScreen = () => {
 
@@ -50,16 +33,29 @@ const UserProfileScreen = () => {
                 <Gradient/>
                 <ScrollView>
                     <ListItem containerStyle={{backgroundColor: 'transparent', paddingHorizontal: 30}}>
-                        <Avatar
-                            title={user.name.first}
-                            avatarStyle={[{
-                                borderColor: 'white',
-                                borderWidth: 2
-                            }]}
-                            rounded
-                            size="large"
-                            source={{uri: user.picture.large}}
-                        />
+                        <View>
+                            <Avatar
+                                title={user.name.first}
+                                avatarStyle={[{
+                                    borderColor: 'white',
+                                    borderWidth: 2
+                                }]}
+                                rounded
+                                size="large"
+                                source={{uri: user.picture.large}}
+                            />
+                            <Badge
+                                passedStyle={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    right: 0
+                                }}
+                                icon="edit"
+                                bgColor={"white"}
+                                color={colors.gray}
+                                pxSize={20}
+                            />
+                        </View>
                         <ListItem.Content
                             style={{
                                 backgroundColor: 'transparent',
@@ -76,12 +72,28 @@ const UserProfileScreen = () => {
                                     style={{color: '#EEEEEE', fontSize: 14}}>@{user.name.userName}</ListItem.Subtitle>
 
                             </View>
-                            <RoundIconButton
-                                bgColor={'transparent'}
-                                icon={'sign-out-alt'}
-                                size={'lg'}
-                                onPress={logout}
-                            />
+                            <View style={
+                                {
+                                    marginTop: -16
+                                }
+                            }>
+                                <RoundIconButton
+                                    bgColor={'transparent'}
+                                    icon={'sign-out-alt'}
+                                    size={'lg'}
+                                    onPress={logout}
+                                />
+                                <Badge
+                                    passedStyle={{
+                                        position: "absolute",
+                                        bottom: -12,
+                                        right: 14
+                                    }}
+                                    icon="edit"
+                                    bgColor={"transparent"}
+                                    pxSize={32}
+                                />
+                            </View>
                         </ListItem.Content>
                     </ListItem>
                     <View style={styles.cardContainer}>
@@ -106,6 +118,7 @@ const UserProfileScreen = () => {
                                         <RoundIconButton
                                             icon={"chart-line"}
                                             size={"lg"}
+                                            onPress={navigate("Stats")}
                                         />
                                         <Text style={styles.menuText}>
                                             Statystyki
@@ -115,6 +128,7 @@ const UserProfileScreen = () => {
                                         <RoundIconButton
                                             icon={"crown"}
                                             size={"lg"}
+                                            onPress={navigate("Achievement")}
                                         />
                                         <Text style={styles.menuText}>
                                             Osiągnięcia
@@ -135,6 +149,7 @@ const UserProfileScreen = () => {
                                         <RoundIconButton
                                             icon={"award"}
                                             size={"lg"}
+                                            onPress={navigate("Prize")}
                                         />
                                         <Text style={styles.menuText}>
                                             Nagrody

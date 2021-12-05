@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import colors from "../../constants/colors";
 import {FontAwesome5} from "@expo/vector-icons";
 
@@ -8,24 +8,30 @@ const SIZE = 50
 const Badge = (
     {
         size,
+        pxSize,
         IconFamily = FontAwesome5,
         icon = "",
         onPress = () => {
         },
         color = 'white',
         bgColor = colors.primary,
+        passedStyle = {}
     }) => {
     return (
         <View
         >
-            <View style={[styles.container, size === 'lg' ? styles.big : {}, {backgroundColor: bgColor}]}>
+            <View style={[styles.container, size === 'lg' ? styles.big : {}, {backgroundColor: bgColor}, pxSize ? {
+                width: pxSize,
+                height: pxSize,
+                borderRadius: pxSize
+            } : {}, passedStyle]}>
                 {!!IconFamily && <IconFamily
                     name={icon}
-                    size={size === 'lg' ? SIZE * 0.45 : SIZE * 0.375}
+                    size={pxSize ? pxSize / 2 : size === 'lg' ? SIZE * 0.45 : SIZE * 0.375}
                     color={color}
                     style={[
                         styles.icon,
-                        size === 'lg' ? styles.bigIcon : {}
+                        size === 'lg' ? styles.big : {},
                     ]}/>}
             </View>
         </View>
@@ -37,7 +43,6 @@ export default Badge;
 const styles = StyleSheet.create(
     {
         container: {
-            padding: 10,
             alignItems: 'center',
             justifyContent: 'center',
             width: SIZE,

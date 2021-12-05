@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {Marker, Polyline} from 'react-native-maps';
 import {
     Dimensions,
     Image,
@@ -18,12 +18,14 @@ import {useDispatch} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import {useGetScooters} from "../../crud/list/getScooters";
 import * as Location from 'expo-location';
-import bike from "../../../assets/icons/bike.png"
 import avatar from "../../../assets/icons/avatar.png"
-import * as threats from "../../../assets/threats"
+import avatar2 from "../../../assets/icons/avatar2.png"
+import avatar3 from "../../../assets/icons/avatar3.png"
+import bike from "../../../assets/icons/bike.png"
 import myStyles from "../../constants/myStyles";
 import {FontAwesome5} from "@expo/vector-icons";
 import colors from "../../constants/colors";
+import {useGetThreats} from "../../crud/list/getThreats";
 
 const MapScreen = () => {
 
@@ -32,6 +34,9 @@ const MapScreen = () => {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [modalDangerVisible, setModalDangerVisible] = useState(false);
+    const [modalRouteVisible, setModalRouteVisible] = useState(false);
+    const [selectedMeansOfTransport, setSelectedMeansOfTransport] = useState(0);
+    const [selectedDestination, setSelectedDestination] = useState(0);
     useEffect(() => {
         (async () => {
             let {status} = await Location.requestForegroundPermissionsAsync();
@@ -50,6 +55,7 @@ const MapScreen = () => {
         })();
     }, []);
     const {data} = useGetScooters();
+    const {data: threats} = useGetThreats();
     const mapRef = useRef(null);
     const markerRef = useRef(null);
     const navigate = (screenName) => () => {
@@ -147,24 +153,142 @@ const MapScreen = () => {
                         </View>
                         <Pressable style={{
                             justifyContent: 'flex-end',
-                            alignItems: "flex-end",
+                            alignItems: "center",
                             paddingTop: 40,
                         }}
-                        onPress={() => {setModalDangerVisible(false)}}
+                                   onPress={() => {
+                                       setModalDangerVisible(false)
+                                   }}
                         >
                             <View
                                 style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}
                             >
                                 <FontAwesome5
-                                    size={30}
-                                    name="window-close"
+                                    size={50}
+                                    name="times-circle"
                                     color={colors.white}
                                     // color={colors.primary}
                                 />
 
                                 <Text
                                     style={{
-                                        color: colors.white
+                                        color: colors.white,
+                                        fontWeight: "bold"
+                                    }}
+                                >Anuluj</Text>
+                            </View>
+                        </Pressable>
+
+
+                    </View>
+                </View>
+            </Modal>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalDangerVisible}
+                onRequestClose={() => {
+                    setModalDangerVisible(!modalDangerVisible);
+                }}
+                statusBarTranslucent
+            >
+                <View style={styles.centeredView}>
+                    <View>
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            paddingVertical: 10,
+                        }}>
+                            <TouchableOpacity
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}>
+                                <Image source={threats.bumpySidewalk} style={styles.threat}/>
+                                <Text style={{fontWeight: "bold", color: "white", textAlign: "center"}}>Nierówny
+                                    Chodnik</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}>
+                                <Image source={threats.dangerousCrosswalk} style={styles.threat}/>
+                                <Text style={{fontWeight: "bold", color: "white", textAlign: "center"}}>Niebezpieczne
+                                    przejście</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}>
+                                <Image source={threats.noise} style={styles.threat}/>
+                                <Text style={{fontWeight: "bold", color: "white", textAlign: "center"}}>Hałas</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            paddingVertical: 10,
+                        }}>
+                            <TouchableOpacity
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}>
+                                <Image source={threats.accident} style={styles.threat}/>
+                                <Text style={{fontWeight: "bold", color: "white", textAlign: "center"}}>Wypadek</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}>
+                                <Image source={threats.noSidewalk} style={styles.threat}/>
+                                <Text style={{fontWeight: "bold", color: "white", textAlign: "center"}}>Brak
+                                    chodnika</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}>
+                                <Image source={threats.dangerousPlace} style={styles.threat}/>
+                                <Text style={{fontWeight: "bold", color: "white", textAlign: "center"}}>Niebezpieczne
+                                    miejsce</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            paddingVertical: 10,
+                        }}>
+                            <TouchableOpacity
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}>
+                                <Image source={threats.poorlyLitRoad} style={styles.threat}/>
+                                <Text style={{fontWeight: "bold", color: "white", textAlign: "center"}}>Słabe
+                                    oświetlenie</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}>
+                                <Image source={threats.roadWorks} style={styles.threat}/>
+                                <Text style={{fontWeight: "bold", color: "white", textAlign: "center"}}>Roboty
+                                    drogowe</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}>
+                                <Image source={threats.otherDangers} style={styles.threat}/>
+                                <Text style={{fontWeight: "bold", color: "white", textAlign: "center"}}>Inne
+                                    zagrożenie</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <Pressable style={{
+                            justifyContent: 'flex-end',
+                            alignItems: "center",
+                            paddingTop: 40,
+                        }}
+                                   onPress={() => {
+                                       setModalDangerVisible(false)
+                                   }}
+                        >
+                            <View
+                                style={{width: "30%", justifyContent: "flex-start", alignItems: "center"}}
+                            >
+                                <FontAwesome5
+                                    size={50}
+                                    name="times-circle"
+                                    color={colors.white}
+                                    // color={colors.primary}
+                                />
+
+                                <Text
+                                    style={{
+                                        color: colors.white,
+                                        fontWeight: "bold"
                                     }}
                                 >Anuluj</Text>
                             </View>
@@ -194,6 +318,7 @@ const MapScreen = () => {
                                    image={bike}
                     />
                 })}
+
                 {location && <Marker ref={markerRef} coordinate={location}>
                     <Image source={avatar}
                            style={{width: 30, height: 30}}
@@ -202,6 +327,46 @@ const MapScreen = () => {
                     />
 
                 </Marker>}
+                {/*{!!threats && threats.map(scooter => {*/}
+                {/*    return <Marker key={scooter.position?.lng + scooter.position?.lat} coordinate={{*/}
+                {/*        latitude: scooter.position?.lng,*/}
+                {/*        longitude: scooter.position?.lat,*/}
+                {/*    }*/}
+                {/*    }*/}
+                
+                {/*    >*/}
+                {/*        <Image source={{uri: scooter.photoUrl}}*/}
+                {/*               style={{width: 50, height: 50}}*/}
+                {/*               resizeMode="center"*/}
+                {/*               resizeMethod="resize"*/}
+                {/*        />*/}
+                {/*    </Marker>*/}
+                {/*})}*/}
+                {/*<Marker coordinate={{latitude: 51.106380, longitude: 17.096980}}>*/}
+                {/*    <Image source={avatar}*/}
+                {/*           style={{width: 30, height: 30}}*/}
+                {/*           resizeMode="center"*/}
+                {/*           resizeMethod="resize"*/}
+                {/*    />*/}
+                
+                {/*</Marker>*/}
+                {/*<Marker coordinate={{latitude: 51.107920, longitude: 17.098303}}>*/}
+                {/*    <Image source={avatar2}*/}
+                {/*           style={{width: 30, height: 30}}*/}
+                {/*           resizeMode="center"*/}
+                {/*           resizeMethod="resize"*/}
+                {/*    />*/}
+                
+                {/*</Marker>*/}
+                {/*<Marker coordinate={{latitude: 51.106380, longitude: 17.099778}}>*/}
+                {/*    <Image source={avatar3}*/}
+                {/*           style={{width: 30, height: 30}}*/}
+                {/*           resizeMode="center"*/}
+                {/*           resizeMethod="resize"*/}
+                {/*    />*/}
+                
+                {/*</Marker>*/}
+
             </MapView>
             <View style={styles.topRightContainer}>
                 <RoundIconButton
